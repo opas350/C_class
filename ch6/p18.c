@@ -6,7 +6,7 @@ Notice how the different results returned by the main function signal the reason
 
 #include<stdio.h>
 
-int main(int argc, char *atgv[]){
+int main(int argc, char *argv[]){
 	int i;
 	if(argc == 1){
 		printf("usage: args arg1 arg2 arg3 ... \n");
@@ -20,6 +20,6 @@ if(argc == 2 && strcmp(argv[1],"-v") == 0){
 }
 
 	for(i=0;i<argc;i++)
-	printf("%s \n",argv[2]);
+	printf("%s \n",argv[i]);
 	return 0;
 }
