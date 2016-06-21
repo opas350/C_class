@@ -1,0 +1,48 @@
+8.8.1 The #if, #endif, #else and #elif directives
+
+In the most general case, conditional compilation directives are used in the following way →
+
+If you use the #if directive you are obliged to use the #endif directive, too. Between these two directives any number of #elif directives (it's a short for else if) and at most one #else directive may be used. The expressions placed after the #if and #elif are used to decide which of the texts will be passed to further compilation.
+
+Because the expressions are evaluated by the preprocessor, not the compiler, at the moment when the variable values are not known yet,  they must be evaluated exclusively by means of:
+
+preprocessor symbols that are assigned numeric values (using #define directives)
+operators: +, -, * (multiplication), /, >>, <<,>, <,> =, <=, ==,! =,%, & (conjunction), &&, |, | |
+sub-expressions enclosed in the parentheses
+a pseudo-function named defined whose argument is a symbol and whose result is 1 if the symbol is defined, and otherwise the result will be 0.
+Some of the directives may be simplified. For example:
+
+     #if defined(IDENT)
+
+can be always written as:
+
+     #ifdef IDENT
+
+and a directive like this:
+
+     #if !defined(IDENT)
+
+may take the form of:
+
+     #ifndef IDENT
+
+The process of interpreting the presented directives is as follows:
+
+the value of expression0  is being evaluated first and if its result is non-zero the text0 is passed to the compiler; in this case all other texts are ignored and won't be compiled
+otherwise the preprocessor calculates the value of the expression1; if non-zero it causes text1 to be compiled and all other texts to be ignored
+when none of the expressions evaluate to a non-zero value only the text associated with the #else directive will be compiled
+
+#if expression0
+text0
+#elif expression1
+text1
+#elif expression2
+text2
+  :
+  :
+#elif expressionn
+textn
+#else
+texte
+#endif
+ 

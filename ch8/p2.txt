@@ -1,0 +1,25 @@
+The ## operator
+
+The ## operator is a binary operator requiring two arguments and is used in the following way →
+
+It causes the texts retrieved from the arguments to be “glued” (concatenated), thus, will transform the initial expression to the following form:
+
+     argument1argument2
+
+Note that such effect cannot be achieved in any other way because a macro similar to the following:
+
+     #define GLUE (X,Y) XY
+
+will not work. The preprocessor recognizes the XY identifier, not X and Y. 
+
+Here is the correct solution:
+
+     #define GLUE(X,Y)  X##Y
+
+The GLUE macro used in the following way:
+
+     GLUE(MaryHad, ALittleLamb)
+
+will be expanded to the form:
+
+     MaryHadALittleLamb

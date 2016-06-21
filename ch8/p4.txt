@@ -1,0 +1,41 @@
+
+1
+2
+3
+4
+5
+6
+
+8.8.2 The #if, #endif, #else and #elif directives
+
+Let us present two simple examples illustrating how these directives could be used in your programs.
+
+Imagine that due to some unexpected issues you decided to use the SNAP macro in your own code. The macro helps you to identify some mistakes and to locate the very first reason for unexpected program behaviours. Your program seems to be working properly right now while your code may look as follows:
+
+     int ElementsToSort = ReadElementsFromFile();
+     SNAP(ElementsToSort);
+
+Of course, you can remove all the source lines which refer to SNAP, but... OK, you can say it sounds a bit paranoid but what will happen if the troubles return? You can exclude the possibility that there are some other errors in your code and that you will have to look for them once again. 
+
+By the way, the process of searching for errors and removing them is referred to as debugging (it's a consequence of an old joke saying that developers don't make errors at all; the errors are caused by bugs living inside the computers). You have to debug your code when you suspect that it doesn't work as it should.
+
+Is it possible to have SNAP working when you are debugging the code, and to turn if off when the debugging is completed?
+
+Yes, it is. You can use the conditional compilation directives for that purpose. Take a look at the code here →
+
+The line referring to SNAP will be compiled when, and only when, the DEBUG identifier is defined and completely ignored otherwise.
+
+There are two ways to define the DEBUG identifier. You already know the first one: you have to put a line like the one below somewhere in your code (but before the first #if directive, of course):
+
+     #define DEBUG
+
+The second method is based on the fact that all “C” language compilers are able to define an identifier outside the source code. You can order the compiler to define any identifier before it starts to compile the source files.  Please, refer to your compiler's documentation for details. The GCC compiler needs an option to do it – it looks as follows:
+
+     gcc -D DEBUG filec.c
+
+The source file named filec.c will be compiled assuming that the DEBUG symbol is already defined.
+
+int ElementsToSort = ReadElementsFromFile();
+#ifdef DEBUG
+SNAP(ElementsToSort);
+#endif
